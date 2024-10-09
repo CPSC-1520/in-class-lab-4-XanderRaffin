@@ -1,6 +1,49 @@
 
 // Enter your code below.
+let form = document.querySelector("#new-order-form");
 
+
+form.addEventListener('submit', (event)=>
+{
+  event.preventDefault();
+  let isFormValid = true;
+
+  let orderItemName = event.target.elements["order-item-name"];
+  if(isValueNotEmpty(orderItemName.value)){
+    orderItemName.classList.remove('is-invalid');
+  }
+  else{
+    orderItemName.classList.add('is-invalid');
+    isFormValid = false;
+  }
+
+  let orderItemPrice = event.target.elements["order-item-price"];
+
+  if(isValueNotEmpty(orderItemPrice.value) && isGreaterThanFive(orderItemPrice.value)){
+
+    orderItemPrice.classList.remove("is-invalid");
+  }
+  else{
+
+    orderItemPrice.classList.add("is-invalid");
+    isFormValid = false;
+  }
+
+  let orderSize = event.target.elements["order-size"];
+  if(isValueNotEmpty(orderSize.value)){
+
+    orderSize.classList.remove('is-invalid');
+
+  }
+  else{
+    orderSize.classList.add('is-invalid');
+    isFormValid = false
+  }
+
+  if(isFormValid === true){
+    addOrderItem(orderItemName.value, orderItemPrice.value, orderSize.value);
+  }
+})
 
 // functions needed for assessment (do not change.)
 
@@ -13,6 +56,7 @@
 const isValueNotEmpty = (value) => {
   if (value !== "") {
       return true
+      
   }
   return false
 }
